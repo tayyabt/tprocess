@@ -26,7 +26,7 @@ with codecs.open('README.md', 'r', 'utf-8') as f:
 
 setup(
 	name='tprocess',
-	version='0.1a0',
+	version='0.1',
 	description='A simple package for communicating with subprocesses (like pexpect) without the dreaded 1024 input limit.',
 	long_description=readme,
 	author='Tayyab Tariq',

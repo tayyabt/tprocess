@@ -71,7 +71,10 @@ class tprocess:
 			ch = self.proc.stdout.read(1)
 			if start_time == None:
 				start_time = time.time() 
-			ch = ch.decode(self.encoding)
+			try:
+				ch = ch.decode(self.encoding, 'ignore')
+			except Exception as ex:
+				ch = ch.encode(self.encoding, 'ignore').decode(self.encoding, 'ignore')
 			self.before = self.before + ch
 			m = re.search( exp, self.before )
 			if m:
@@ -100,7 +103,10 @@ class tprocess:
 		return self.send(text+"\n")
 
 	def send(self, text):
-		text_bytes = text.encode(self.encoding)
+		try:
+			text_bytes = text.encode(self.encoding, 'ignore')
+		except Exception as ex:
+			text_bytes = text.decode(self.encoding, 'ignore').encode(self.encoding, 'ignore')
 		c = self.proc.stdin.write( text_bytes )
 		self.proc.stdin.flush()
 		return c
